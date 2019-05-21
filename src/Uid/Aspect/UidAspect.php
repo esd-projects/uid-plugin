@@ -40,8 +40,8 @@ class UidAspect implements Aspect
         $this->uidFdTable->column("fd", Table::TYPE_INT);
         $this->uidFdTable->create();
         $this->fdUidTable = new Table($getMaxCoroutine);
-        $this->uidFdTable->column("uid", Table::TYPE_STRING, $uidConfig->getUidMaxLength());
-        $this->uidFdTable->create();
+        $this->fdUidTable->column("uid", Table::TYPE_STRING, $uidConfig->getUidMaxLength());
+        $this->fdUidTable->create();
     }
 
     /**
