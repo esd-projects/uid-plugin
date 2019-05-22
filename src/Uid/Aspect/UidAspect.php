@@ -11,12 +11,12 @@ namespace ESD\Plugins\Uid\Aspect;
 use ESD\BaseServer\Memory\CrossProcess\Table;
 use ESD\BaseServer\Plugins\Logger\GetLogger;
 use ESD\BaseServer\Server\Server;
+use ESD\Plugins\Aop\OrderAspect;
 use ESD\Plugins\Uid\UidConfig;
-use Go\Aop\Aspect;
 use Go\Aop\Intercept\MethodInvocation;
 use Go\Lang\Annotation\After;
 
-class UidAspect implements Aspect
+class UidAspect extends OrderAspect
 {
     use GetLogger;
     /**
@@ -167,5 +167,13 @@ class UidAspect implements Aspect
     {
         list($fd, $reactorId) = $invocation->getArguments();
         $this->unBindUid($fd);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return "UidAspect";
     }
 }
