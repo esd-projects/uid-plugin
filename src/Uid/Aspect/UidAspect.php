@@ -9,6 +9,7 @@
 namespace ESD\Plugins\Uid\Aspect;
 
 use ESD\BaseServer\Memory\CrossProcess\Table;
+use ESD\BaseServer\Plugins\Logger\GetLogger;
 use ESD\BaseServer\Server\Server;
 use ESD\Plugins\Uid\UidConfig;
 use Go\Aop\Aspect;
@@ -17,6 +18,7 @@ use Go\Lang\Annotation\After;
 
 class UidAspect implements Aspect
 {
+    use GetLogger;
     /**
      * @var Table
      */
@@ -71,6 +73,7 @@ class UidAspect implements Aspect
             $this->unBindUid($fd);
             Server::$instance->closeFd($fd);
         }
+        $this->debug("Kick uid: $uid");
     }
 
     /**
@@ -85,6 +88,7 @@ class UidAspect implements Aspect
         }
         $this->fdUidTable->set($fd, ["uid" => $uid]);
         $this->uidFdTable->set($uid, ["fd" => $fd]);
+        $this->debug("$fd Bind uid: $uid");
     }
 
     /**
@@ -96,6 +100,7 @@ class UidAspect implements Aspect
         $this->fdUidTable->del($fd);
         if ($uid != null) {
             $this->uidFdTable->del($uid);
+            $this->debug("$fd UnBind uid: $uid");
         }
     }
 
