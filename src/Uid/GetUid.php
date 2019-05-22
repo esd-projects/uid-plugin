@@ -9,6 +9,7 @@
 namespace ESD\Plugins\Uid;
 
 
+use ESD\BaseServer\Memory\CrossProcess\Table;
 use ESD\BaseServer\Server\Server;
 
 trait GetUid
@@ -78,6 +79,30 @@ trait GetUid
         $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
         if ($uidPlugin instanceof UidPlugin) {
             return $uidPlugin->getUidAspect()->getAllUid();
+        }
+        return null;
+    }
+
+    /**
+     * @return Table
+     */
+    public function getUidFdTable(): Table
+    {
+        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
+        if ($uidPlugin instanceof UidPlugin) {
+            return $uidPlugin->getUidAspect()->getUidFdTable();
+        }
+        return null;
+    }
+
+    /**
+     * @return Table
+     */
+    public function getFdUidTable(): Table
+    {
+        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
+        if ($uidPlugin instanceof UidPlugin) {
+            return $uidPlugin->getUidAspect()->getFdUidTable();
         }
         return null;
     }
