@@ -87,9 +87,11 @@ class UidPlugin extends AbstractPlugin
      * 初始化
      * @param Context $context
      * @return mixed
+     * @throws \ESD\BaseServer\Server\Exception\ConfigException
      */
     public function beforeServerStart(Context $context)
     {
+        $this->uidConfig->merge();
         $serverConfig = $context->getServer()->getServerConfig();
         $this->uidAspect->createTable($serverConfig->getMaxCoroutine(), $this->uidConfig);
     }
