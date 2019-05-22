@@ -13,11 +13,19 @@ use ESD\BaseServer\Server\Server;
 
 trait GetUid
 {
-    public function bindUid($fd, $uid)
+    public function kickUid($uid)
     {
         $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
         if ($uidPlugin instanceof UidPlugin) {
-            $uidPlugin->getUidAspect()->bindUid($fd, $uid);
+            $uidPlugin->getUidAspect()->kickUid($uid);
+        }
+    }
+
+    public function bindUid($fd, $uid, $autoKick = true)
+    {
+        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
+        if ($uidPlugin instanceof UidPlugin) {
+            $uidPlugin->getUidAspect()->bindUid($fd, $uid, $autoKick);
         }
     }
 

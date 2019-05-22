@@ -9,6 +9,7 @@
 namespace ESD\Plugins\Uid\Aspect;
 
 use ESD\BaseServer\Memory\CrossProcess\Table;
+use ESD\BaseServer\Server\Server;
 use ESD\Plugins\Uid\UidConfig;
 use Go\Aop\Aspect;
 use Go\Aop\Intercept\MethodInvocation;
@@ -61,11 +62,27 @@ class UidAspect implements Aspect
     }
 
     /**
-     * @param $fd
      * @param $uid
      */
-    public function bindUid($fd, $uid)
+    public function kickUid($uid)
     {
+        $fd = $this->getUidFd($uid);
+        if ($fd != null) {
+            $this->unBindUid($fd);
+            Server::$instance->closeFd($fd);
+        }
+    }
+
+    /**
+     * @param $fd
+     * @param $uid
+     * @param bool $autoKick
+     */
+    public function bindUid($fd, $uid, $autoKick = true)
+    {
+        if ($autoKick) {
+            $this->kickUid($uid);
+        }
         $this->fdUidTable->set($fd, ["uid" => $uid]);
         $this->uidFdTable->set($uid, ["fd" => $fd]);
     }
