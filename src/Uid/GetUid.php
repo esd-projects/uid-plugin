@@ -11,76 +11,64 @@ namespace ESD\Plugins\Uid;
 
 use ESD\BaseServer\Memory\CrossProcess\Table;
 use ESD\BaseServer\Server\Server;
+use ESD\Plugins\Uid\Aspect\UidAspect;
 
 trait GetUid
 {
+    protected $uidAspect;
+
+    /**
+     * @return UidAspect
+     */
+    protected function getUidAspect(): UidAspect
+    {
+        if ($this->uidAspect == null) {
+            $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
+            if ($uidPlugin instanceof UidPlugin) {
+                $this->uidAspect = $uidPlugin->getUidAspect();
+            }
+        }
+        return $this->uidAspect;
+    }
+
     public function kickUid($uid)
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            $uidPlugin->getUidAspect()->kickUid($uid);
-        }
+        return $this->getUidAspect()->kickUid($uid);
     }
 
     public function bindUid($fd, $uid, $autoKick = true)
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            $uidPlugin->getUidAspect()->bindUid($fd, $uid, $autoKick);
-        }
+        return $this->getUidAspect()->bindUid($fd, $uid, $autoKick);
     }
 
     public function unBindUid($fd)
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            $uidPlugin->getUidAspect()->unBindUid($fd);
-        }
+        return $this->getUidAspect()->unBindUid($fd);
     }
 
     public function getUidFd($uid)
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            return $uidPlugin->getUidAspect()->getUidFd($uid);
-        }
-        return null;
+        return $this->getUidAspect()->getUidFd($uid);
     }
 
     public function getFdUid($fd)
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            return $uidPlugin->getUidAspect()->getFdUid($fd);
-        }
-        return null;
+        return $this->getUidAspect()->getFdUid($fd);
     }
 
     public function isOnline($uid)
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            return $uidPlugin->getUidAspect()->isOnline($uid);
-        }
-        return null;
+        return $this->getUidAspect()->isOnline($uid);
     }
 
     public function getUidCount()
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            return $uidPlugin->getUidAspect()->getUidCount();
-        }
-        return null;
+        return $this->getUidAspect()->getUidCount();
     }
 
     public function getAllUid()
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            return $uidPlugin->getUidAspect()->getAllUid();
-        }
-        return null;
+        return $this->getUidAspect()->getAllUid();
     }
 
     /**
@@ -88,11 +76,7 @@ trait GetUid
      */
     public function getUidFdTable(): Table
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            return $uidPlugin->getUidAspect()->getUidFdTable();
-        }
-        return null;
+        return $this->getUidAspect()->getUidFdTable();
     }
 
     /**
@@ -100,10 +84,6 @@ trait GetUid
      */
     public function getFdUidTable(): Table
     {
-        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
-        if ($uidPlugin instanceof UidPlugin) {
-            return $uidPlugin->getUidAspect()->getFdUidTable();
-        }
-        return null;
+        return $this->getUidAspect()->getFdUidTable();
     }
 }
