@@ -117,6 +117,27 @@ class UidAspect implements Aspect
         return $this->fdUidTable->get($fd, "uid");
     }
 
+    public function isOnline($uid)
+    {
+        $fd = $this->getUidFd($uid);
+        if ($fd != null) return true;
+        return false;
+    }
+
+    public function getUidCount()
+    {
+        return $this->fdUidTable->count();
+    }
+
+    public function getAllUid()
+    {
+        $result = [];
+        foreach ($this->uidFdTable as $key => $value) {
+            $result[] = $key;
+        }
+        return $result;
+    }
+
     /**
      * around onTcpReceive
      *

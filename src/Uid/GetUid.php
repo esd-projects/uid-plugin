@@ -54,4 +54,31 @@ trait GetUid
         }
         return null;
     }
+
+    public function isOnline($uid)
+    {
+        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
+        if ($uidPlugin instanceof UidPlugin) {
+            return $uidPlugin->getUidAspect()->isOnline($uid);
+        }
+        return null;
+    }
+
+    public function getUidCount()
+    {
+        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
+        if ($uidPlugin instanceof UidPlugin) {
+            return $uidPlugin->getUidAspect()->getUidCount();
+        }
+        return null;
+    }
+
+    public function getAllUid()
+    {
+        $uidPlugin = Server::$instance->getPlugManager()->getPlug(UidPlugin::class);
+        if ($uidPlugin instanceof UidPlugin) {
+            return $uidPlugin->getUidAspect()->getAllUid();
+        }
+        return null;
+    }
 }
