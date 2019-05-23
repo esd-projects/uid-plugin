@@ -26,6 +26,10 @@ class UidPlugin extends AbstractPlugin
      * @var UidConfig|null
      */
     private $uidConfig;
+    /**
+     * @var UidBean
+     */
+    private $uid;
 
     /**
      * 获取插件名字
@@ -33,7 +37,7 @@ class UidPlugin extends AbstractPlugin
      */
     public function getName(): string
     {
-        return "Uid";
+        return "UidBean";
     }
 
     /**
@@ -93,7 +97,8 @@ class UidPlugin extends AbstractPlugin
     {
         $this->uidConfig->merge();
         $serverConfig = $context->getServer()->getServerConfig();
-        $this->uidAspect->createTable($serverConfig->getMaxCoroutine(), $this->uidConfig);
+        $this->uid = new UidBean($serverConfig->getMaxCoroutine(), $this->uidConfig);
+        $this->setToDIContainer(UidBean::class, $this->uid);
     }
 
     /**
