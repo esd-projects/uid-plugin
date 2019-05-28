@@ -9,7 +9,7 @@
 namespace ESD\Plugins\Uid;
 
 
-use ESD\BaseServer\Plugins\Config\BaseConfig;
+use ESD\Core\Plugins\Config\BaseConfig;
 
 class UidConfig extends BaseConfig
 {

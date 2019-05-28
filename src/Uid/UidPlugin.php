@@ -8,10 +8,10 @@
 
 namespace ESD\Plugins\Uid;
 
-use ESD\BaseServer\Server\Context;
-use ESD\BaseServer\Server\PlugIn\AbstractPlugin;
-use ESD\BaseServer\Server\PlugIn\PluginInterfaceManager;
-use ESD\BaseServer\Server\Server;
+use ESD\Core\Context\Context;
+use ESD\Core\PlugIn\AbstractPlugin;
+use ESD\Core\PlugIn\PluginInterfaceManager;
+use ESD\Core\Server\Server;
 use ESD\Plugins\Aop\AopConfig;
 use ESD\Plugins\Aop\AopPlugin;
 use ESD\Plugins\Uid\Aspect\UidAspect;
@@ -45,6 +45,7 @@ class UidPlugin extends AbstractPlugin
      * @param UidConfig|null $uidConfig
      * @throws \DI\DependencyException
      * @throws \ReflectionException
+     * @throws \DI\NotFoundException
      */
     public function __construct(?UidConfig $uidConfig = null)
     {
@@ -61,7 +62,8 @@ class UidPlugin extends AbstractPlugin
      * @param PluginInterfaceManager $pluginInterfaceManager
      * @return mixed|void
      * @throws \DI\DependencyException
-     * @throws \ESD\BaseServer\Exception
+     * @throws \DI\NotFoundException
+     * @throws \ESD\Core\Exception
      * @throws \ReflectionException
      */
     public function onAdded(PluginInterfaceManager $pluginInterfaceManager)
@@ -75,13 +77,13 @@ class UidPlugin extends AbstractPlugin
      * @return mixed|void
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
-     * @throws \ESD\BaseServer\Exception
+     * @throws \ESD\Core\Exception
      */
     public function init(Context $context)
     {
         parent::init($context);
-        $serverConfig = $context->getServer()->getServerConfig();
-        $aopConfig = Server::$instance->getContainer()->get(AopConfig::class);
+        $serverConfig = Server::$instance->getServerConfig();
+        $aopConfig = DIGet(AopConfig::class);
         $aopConfig->addIncludePath($serverConfig->getVendorDir() . "/esd/base-server");
         $this->uidAspect = new UidAspect();
         $aopConfig->addAspect($this->uidAspect);
@@ -91,12 +93,15 @@ class UidPlugin extends AbstractPlugin
      * 初始化
      * @param Context $context
      * @return mixed
-     * @throws \ESD\BaseServer\Server\Exception\ConfigException
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws \ESD\Core\Plugins\Config\ConfigException
+     * @throws \Exception
      */
     public function beforeServerStart(Context $context)
     {
         $this->uidConfig->merge();
-        $serverConfig = $context->getServer()->getServerConfig();
+        $serverConfig = Server::$instance->getServerConfig();
         $this->uid = new UidBean($serverConfig->getMaxCoroutine(), $this->uidConfig);
         $this->setToDIContainer(UidBean::class, $this->uid);
     }

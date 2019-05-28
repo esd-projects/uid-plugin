@@ -8,10 +8,9 @@
 
 namespace ESD\Plugins\Uid;
 
-
-use ESD\BaseServer\Memory\CrossProcess\Table;
-use ESD\BaseServer\Plugins\Logger\GetLogger;
-use ESD\BaseServer\Server\Server;
+use ESD\Core\Memory\CrossProcess\Table;
+use ESD\Core\Plugins\Logger\GetLogger;
+use ESD\Core\Server\Server;
 
 class UidBean
 {
@@ -62,6 +61,8 @@ class UidBean
 
     /**
      * @param $uid
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
      */
     public function kickUid($uid)
     {
@@ -77,6 +78,8 @@ class UidBean
      * @param $fd
      * @param $uid
      * @param bool $autoKick
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
      */
     public function bindUid($fd, $uid, $autoKick = true)
     {
@@ -90,6 +93,8 @@ class UidBean
 
     /**
      * @param $fd
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
      */
     public function unBindUid($fd)
     {

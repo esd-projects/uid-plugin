@@ -9,8 +9,8 @@
 namespace ESD\Plugins\Uid;
 
 
-use ESD\BaseServer\Memory\CrossProcess\Table;
-use ESD\BaseServer\Server\Server;
+use ESD\Core\Memory\CrossProcess\Table;
+use ESD\Core\Server\Server;
 
 trait GetUid
 {

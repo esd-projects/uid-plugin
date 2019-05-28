@@ -8,8 +8,8 @@
 
 namespace ESD\Plugins\Uid\Aspect;
 
-use ESD\BaseServer\Plugins\Logger\GetLogger;
-use ESD\BaseServer\Server\Server;
+use ESD\Core\Plugins\Logger\GetLogger;
+use ESD\Core\Server\Server;
 use ESD\Plugins\Aop\OrderAspect;
 use ESD\Plugins\Uid\UidBean;
 use Go\Aop\Intercept\MethodInvocation;
