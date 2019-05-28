@@ -30,7 +30,7 @@ class UidAspect extends OrderAspect
      *
      * @param MethodInvocation $invocation Invocation
      * @throws \Throwable
-     * @After("within(ESD\BaseServer\Server\IServerPort+) && execution(public **->onTcpClose(*))")
+     * @After("within(ESD\Core\Server\Port\IServerPort+) && execution(public **->onTcpClose(*))")
      */
     protected function afterTcpClose(MethodInvocation $invocation)
     {
@@ -43,7 +43,7 @@ class UidAspect extends OrderAspect
      *
      * @param MethodInvocation $invocation Invocation
      * @throws \Throwable
-     * @After("within(ESD\BaseServer\Server\IServerPort+) && execution(public **->onWsClose(*))")
+     * @After("within(ESD\Core\Server\Port\IServerPort+) && execution(public **->onWsClose(*))")
      */
     protected function afterWsClose(MethodInvocation $invocation)
     {
