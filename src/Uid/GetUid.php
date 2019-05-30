@@ -32,7 +32,7 @@ trait GetUid
 
     /**
      * @param $uid
- */
+     */
     public function kickUid($uid)
     {
         $this->getUidBean()->kickUid($uid);
@@ -42,7 +42,6 @@ trait GetUid
      * @param $fd
      * @param $uid
      * @param bool $autoKick
-
      */
     public function bindUid($fd, $uid, $autoKick = true)
     {
@@ -51,7 +50,6 @@ trait GetUid
 
     /**
      * @param $fd
-
      */
     public function unBindUid($fd)
     {
@@ -61,7 +59,6 @@ trait GetUid
     /**
      * @param $uid
      * @return mixed
-
      */
     public function getUidFd($uid)
     {
@@ -71,7 +68,6 @@ trait GetUid
     /**
      * @param $fd
      * @return mixed
-
      */
     public function getFdUid($fd)
     {
@@ -81,7 +77,6 @@ trait GetUid
     /**
      * @param $uid
      * @return bool
-
      */
     public function isOnline($uid)
     {
@@ -90,7 +85,6 @@ trait GetUid
 
     /**
      * @return int
-
      */
     public function getUidCount()
     {
@@ -99,7 +93,6 @@ trait GetUid
 
     /**
      * @return array
-
      */
     public function getAllUid()
     {
@@ -108,7 +101,6 @@ trait GetUid
 
     /**
      * @return Table
-
      */
     public function getUidFdTable(): Table
     {
@@ -117,7 +109,6 @@ trait GetUid
 
     /**
      * @return Table
-
      */
     public function getFdUidTable(): Table
     {
