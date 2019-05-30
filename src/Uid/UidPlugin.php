@@ -61,8 +61,6 @@ class UidPlugin extends AbstractPlugin
     /**
      * @param PluginInterfaceManager $pluginInterfaceManager
      * @return mixed|void
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
      * @throws \ESD\Core\Exception
      * @throws \ReflectionException
      */
@@ -75,9 +73,7 @@ class UidPlugin extends AbstractPlugin
     /**
      * @param Context $context
      * @return mixed|void
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \ESD\Core\Exception
+ * @throws \ESD\Core\Exception
      */
     public function init(Context $context)
     {
@@ -93,9 +89,7 @@ class UidPlugin extends AbstractPlugin
      * 初始化
      * @param Context $context
      * @return mixed
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \ESD\Core\Plugins\Config\ConfigException
+ * @throws \ESD\Core\Plugins\Config\ConfigException
      * @throws \Exception
      */
     public function beforeServerStart(Context $context)

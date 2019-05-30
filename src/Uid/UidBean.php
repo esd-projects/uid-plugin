@@ -61,8 +61,6 @@ class UidBean
 
     /**
      * @param $uid
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
      */
     public function kickUid($uid)
     {
@@ -78,9 +76,7 @@ class UidBean
      * @param $fd
      * @param $uid
      * @param bool $autoKick
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     */
+ */
     public function bindUid($fd, $uid, $autoKick = true)
     {
         if ($autoKick) {
@@ -93,8 +89,7 @@ class UidBean
 
     /**
      * @param $fd
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
+
      */
     public function unBindUid($fd)
     {
